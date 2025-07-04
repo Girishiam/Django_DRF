@@ -22,7 +22,7 @@ jobs:
         run: docker compose build
 
       - name: Run Tests
-        run:  docker compose run --rm app sh -c "python manage.py test
+        run:  docker compose run --rm app sh -c "python manage.py test"
 
       - name: Run Flake8
         run:  docker compose run --rm app sh -c "flake8"
