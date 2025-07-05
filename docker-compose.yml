@@ -10,12 +10,15 @@ services:
     volumes:
       - ./app:/app
     command: >
-      sh -c "python manage.py runserver 0.0.0:8000"
+      sh -c "python manage.py wait_for_db && 
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0:8000"
     environment:
       - DB_HOST=db
       - DB_NAME=devdb
       - DB_USER=user
-      - DB_PASSWORD=0707
+      - DB_PASSWORD=abcd
+      - DB_PORT=5432
     depends_on:
       - db
   db:
@@ -24,8 +27,8 @@ services:
       - dev-db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: 0707
+      POSTGRES_PASSWORD: abcd
       POSTGRES_DB: devdb
-
+      POSTGRES_PORT: 5432
 volumes:
     dev-db-data:
